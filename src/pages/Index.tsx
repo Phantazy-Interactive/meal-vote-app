@@ -29,6 +29,11 @@ const Index = () => {
                 Live Demos
               </Button>
             </Link>
+            <a href="/meal-vote-app/storybook/" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="secondary" className="text-lg px-8">
+                📚 Storybook Docs
+              </Button>
+            </a>
           </div>
         </div>
       </div>
@@ -76,7 +81,7 @@ const Index = () => {
           <h2 className="text-3xl font-bold text-foreground text-center mb-8">
             Explore the Library
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link to="/components">
               <Card className="p-6 hover:shadow-medium transition-smooth cursor-pointer">
                 <h3 className="font-semibold text-foreground mb-2">Component Gallery</h3>
@@ -103,6 +108,15 @@ const Index = () => {
                 </p>
               </Card>
             </Link>
+
+            <a href="/meal-vote-app/storybook/" target="_blank" rel="noopener noreferrer">
+              <Card className="p-6 hover:shadow-medium transition-smooth cursor-pointer">
+                <h3 className="font-semibold text-foreground mb-2">Storybook Docs</h3>
+                <p className="text-sm text-muted-foreground">
+                  Detailed component documentation and API reference
+                </p>
+              </Card>
+            </a>
           </div>
         </div>
       </div>

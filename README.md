@@ -21,13 +21,13 @@ import '@phantazyinteractive/mealvote-components/style.css';
 
 Explore all components in action with live examples of voting, planning, and cooking modes.
 
-## 📚 Additional Documentation
+## 📚 Documentation
 
-For detailed component documentation and isolated examples, run Storybook locally:
+**Storybook Documentation**: https://phantazy-interactive.github.io/meal-vote-app/storybook/
 
-```bash
-npm run storybook
-```
+Detailed component documentation with isolated examples, props tables, and API reference.
+
+**Local Storybook**: For development, run `npm run storybook`
 
 ## 🚀 Components
 

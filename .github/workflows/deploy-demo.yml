@@ -1,4 +1,4 @@
-name: Deploy Demo App to GitHub Pages
+name: Deploy Demo App and Storybook to GitHub Pages
 
 on:
   push:
@@ -37,13 +37,23 @@ jobs:
       - name: Build Demo App
         run: npm run build
 
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Combine builds
+        run: |
+          mkdir -p combined-build
+          cp -r dist/* combined-build/
+          mkdir -p combined-build/storybook
+          cp -r storybook-static/* combined-build/storybook/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './combined-build'
 
       - name: Deploy to GitHub Pages
         id: deployment
