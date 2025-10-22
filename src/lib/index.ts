@@ -1,3 +1,6 @@
+// Import styles
+import "./styles.css";
+
 // Export all components
 export { RecipeCard } from "../components/meal-vote/RecipeCard";
 export type { Recipe } from "../components/meal-vote/RecipeCard";

@@ -1,73 +1,82 @@
-# Welcome to your Lovable project
+# MealVote Components
 
-## Project info
+A React component library for collaborative meal planning and voting applications.
 
-**URL**: https://lovable.dev/projects/b75cd152-766b-405f-9aa6-928c7e3c9220
+## 📦 NPM Package
 
-## How can I edit this code?
+Install the component library:
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/b75cd152-766b-405f-9aa6-928c7e3c9220) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm install @phantazyinteractive/mealvote-components
 ```
 
-**Edit a file directly in GitHub**
+```tsx
+import { RecipeCard, VoteCard, CookMode } from '@phantazyinteractive/mealvote-components';
+import '@phantazyinteractive/mealvote-components/style.css';
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📚 Documentation
 
-**Use GitHub Codespaces**
+**Storybook Documentation**: https://phantazy-interactive.github.io/meal-vote-app/
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Explore all components, their props, and interactive examples in our live Storybook documentation.
 
-## What technologies are used for this project?
+## 🚀 Components
 
-This project is built with:
+- **RecipeCard** - Display recipe information with images and details
+- **VoteCard** - Interactive voting interface for recipes
+- **RankedVoteCard** - Ranked choice voting component
+- **CookMode** - Step-by-step cooking instructions interface
+- **MealSlot** - Time-based meal planning slots
+- **TallyBar** - Visual vote tallying and results
+- **ImportBanner** - Recipe import interface
+- **PlanGrid** - Weekly meal planning grid
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Plus all shadcn/ui components included.
 
-## How can I deploy this project?
+## 🛠 Development
 
-Simply open [Lovable](https://lovable.dev/projects/b75cd152-766b-405f-9aa6-928c7e3c9220) and click on Share -> Publish.
+### Local Setup
 
-## Can I connect a custom domain to my Lovable project?
+```sh
+# Clone the repository
+git clone https://github.com/Phantazy-Interactive/meal-vote-app.git
+cd meal-vote-app
 
-Yes, you can!
+# Install dependencies
+npm install
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Start development server
+npm run dev
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+# Start Storybook
+npm run storybook
+```
+
+### Building & Publishing
+
+```sh
+# Build component library
+npm run build:lib
+
+# Build Storybook
+npm run build-storybook
+
+# Publish to npm
+npm publish
+```
+
+## 🏗 Built With
+
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Styling
+- **shadcn/ui** - UI component foundation
+- **Radix UI** - Accessible primitives
+- **Storybook** - Component documentation
+- **Lucide React** - Icons
+
+## 📄 License
+
+MIT License - see LICENSE file for details.
