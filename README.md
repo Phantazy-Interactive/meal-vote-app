@@ -15,11 +15,19 @@ import { RecipeCard, VoteCard, CookMode } from '@phantazyinteractive/mealvote-co
 import '@phantazyinteractive/mealvote-components/style.css';
 ```
 
-## 📚 Documentation
+## 🌐 Live Demo
 
-**Storybook Documentation**: https://phantazy-interactive.github.io/meal-vote-app/
+**Interactive Demo**: https://phantazy-interactive.github.io/meal-vote-app/
 
-Explore all components, their props, and interactive examples in our live Storybook documentation.
+Explore all components in action with live examples of voting, planning, and cooking modes.
+
+## 📚 Additional Documentation
+
+For detailed component documentation and isolated examples, run Storybook locally:
+
+```bash
+npm run storybook
+```
 
 ## 🚀 Components
 
