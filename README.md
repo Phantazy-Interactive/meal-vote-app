@@ -20,12 +20,37 @@ A beautiful, fully-typed React component library for building collaborative meal
 npm install @phantazyinteractive/mealvote-components
 ```
 
+### Required Peer Dependencies
+
+This package requires several peer dependencies that must be installed in your project:
+
+```bash
+# Core React dependencies
+npm install react react-dom lucide-react
+
+# Utility libraries
+npm install class-variance-authority clsx tailwind-merge
+
+# Radix UI components (install only the ones you use)
+npm install @radix-ui/react-tabs @radix-ui/react-progress @radix-ui/react-slot
+# ... add other @radix-ui packages as needed based on which components you use
+```
+
 ### Import Styles
 
 Import the component styles in your app entry point:
 
 ```tsx
 import '@phantazyinteractive/mealvote-components/style.css';
+
+function App() {
+  return (
+    <div>
+      <RecipeCard recipe={recipe} />
+      <VoteCard votes={votes} />
+    </div>
+  );
+}
 ```
 
 ### Peer Dependencies
