@@ -13,6 +13,7 @@ A beautiful, fully-typed React component library for building collaborative meal
 - ♿ **Accessible** - Built with ARIA labels and keyboard navigation
 - 📱 **Responsive** - Mobile-first design that works everywhere
 - 🔷 **TypeScript** - Complete type safety out of the box
+- 🌳 **Tree-Shakable** - Explicit exports for optimal bundle sizes
 
 ## 📦 Installation
 
@@ -279,6 +280,24 @@ function ImportRecipes() {
       }}
       quota={{ used: 7, total: 10 }}
     />
+  );
+}
+```
+
+### Progress Bar
+
+Show progress indicators for tasks and loading states:
+
+```tsx
+import { Progress } from '@phantazyinteractive/mealvote-components';
+
+function LoadingStates() {
+  return (
+    <div className="space-y-4">
+      <Progress value={33} className="w-full" />
+      <Progress value={66} className="w-full" />
+      <Progress value={100} className="w-full" />
+    </div>
   );
 }
 ```
