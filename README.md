@@ -61,6 +61,35 @@ Ensure you have these installed:
 npm install react react-dom lucide-react
 ```
 
+## 📦 Components
+
+### Meal Voting Components
+- **RecipeCard** - Display recipe information with image, title, description, and metadata
+- **VoteCard** - Approval voting interface for recipe selection
+- **RankedVoteCard** - Ranked choice voting with drag-and-drop reordering
+- **TallyBar** - Visual representation of voting results with progress bars
+- **MealSlot** - Individual meal slot for weekly planning
+- **PlanGrid** - Weekly meal planning grid interface
+- **ImportBanner** - Recipe import interface with external recipe management
+- **CookMode** - Step-by-step cooking mode with timer and progress tracking
+
+### UI Components
+- **Button** - Versatile button component with multiple variants (default, outline, destructive, ghost, link) and sizes
+- **Card** - Container component with header, content, and footer sections
+- **Badge** - Small label component for tags and status indicators
+- **Input** - Text input field with consistent styling
+- **Label** - Form label component for accessibility
+- **Checkbox** - Checkbox input with label integration
+- **Alert** - Notification component for important messages with default and destructive variants
+- **Accordion** - Collapsible content sections with smooth animations
+- **Progress** - Progress bar for tracking completion
+- **Tabs** - Tabbed interface for organizing content
+- **Toggle** - Toggle button for binary states
+- **Popover** - Floating content container
+- **HoverCard** - Content that appears on hover
+- **Collapsible** - Expandable/collapsible content
+- **Separator** - Visual divider between sections
+
 ## 🚀 Quick Start
 
 ### Recipe Card
@@ -279,6 +308,155 @@ function ImportRecipes() {
       }}
       quota={{ used: 7, total: 10 }}
     />
+  );
+}
+```
+
+## 🧩 UI Components Usage
+
+### Buttons
+
+```tsx
+import { Button } from '@phantazyinteractive/mealvote-components';
+import { Mail } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <div className="flex gap-4">
+      <Button variant="default">Primary Action</Button>
+      <Button variant="outline">Secondary Action</Button>
+      <Button variant="destructive">Delete</Button>
+      <Button variant="ghost">Ghost Button</Button>
+      <Button variant="link">Link Button</Button>
+      <Button size="sm">Small</Button>
+      <Button size="lg">Large</Button>
+      <Button size="icon"><Mail /></Button>
+    </div>
+  );
+}
+```
+
+### Alert
+
+```tsx
+import { Alert, AlertTitle, AlertDescription } from '@phantazyinteractive/mealvote-components';
+import { AlertCircle, Terminal } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <>
+      <Alert>
+        <Terminal className="h-4 w-4" />
+        <AlertTitle>Heads up!</AlertTitle>
+        <AlertDescription>
+          You can add components to your app using the cli.
+        </AlertDescription>
+      </Alert>
+      
+      <Alert variant="destructive">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>
+          Your session has expired. Please log in again.
+        </AlertDescription>
+      </Alert>
+    </>
+  );
+}
+```
+
+### Accordion
+
+```tsx
+import { 
+  Accordion, 
+  AccordionContent, 
+  AccordionItem, 
+  AccordionTrigger 
+} from '@phantazyinteractive/mealvote-components';
+
+function FAQ() {
+  return (
+    <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>How do I vote?</AccordionTrigger>
+        <AccordionContent>
+          Click on recipes you'd like to vote for!
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Can I change my vote?</AccordionTrigger>
+        <AccordionContent>
+          Yes, you can change your vote anytime before the voting closes.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+### Form Elements
+
+```tsx
+import { Label, Input, Checkbox, Button } from '@phantazyinteractive/mealvote-components';
+
+function FormExample() {
+  return (
+    <form className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input type="email" id="email" placeholder="your@email.com" />
+      </div>
+      
+      <div className="flex items-center space-x-2">
+        <Checkbox id="terms" />
+        <Label htmlFor="terms" className="cursor-pointer">
+          I agree to the terms and conditions
+        </Label>
+      </div>
+      
+      <Button type="submit">Submit</Button>
+    </form>
+  );
+}
+```
+
+### Card Components
+
+```tsx
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from '@phantazyinteractive/mealvote-components';
+
+function CardExample() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Weekly Meal Plan</CardTitle>
+        <CardDescription>Plan your meals for the week</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Your meal planning content goes here.</p>
+      </CardContent>
+      <CardFooter>
+        <Button>Save Plan</Button>
+      </CardFooter>
+    </Card>
+  );
+}
+```
+
+### Badges
+
+```tsx
+import { Badge } from '@phantazyinteractive/mealvote-components';
+
+function BadgeExample() {
+  return (
+    <div className="flex gap-2">
+      <Badge>Default</Badge>
+      <Badge variant="secondary">Secondary</Badge>
+      <Badge variant="destructive">Destructive</Badge>
+      <Badge variant="outline">Outline</Badge>
+    </div>
   );
 }
 ```

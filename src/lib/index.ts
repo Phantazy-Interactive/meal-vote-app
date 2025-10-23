@@ -20,6 +20,15 @@ export * from "../components/ui/badge";
 export * from "../components/ui/input";
 export * from "../components/ui/progress";
 export * from "../components/ui/tabs";
+export * from "../components/ui/alert";
+export * from "../components/ui/accordion";
+export * from "../components/ui/label";
+export * from "../components/ui/checkbox";
+export * from "../components/ui/collapsible";
+export * from "../components/ui/hover-card";
+export * from "../components/ui/popover";
+export * from "../components/ui/toggle";
+export * from "../components/ui/separator";
 
 // Export utilities
 export { cn } from "./utils";
