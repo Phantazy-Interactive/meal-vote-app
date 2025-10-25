@@ -62,6 +62,35 @@ Ensure you have these installed:
 npm install react react-dom lucide-react
 ```
 
+## 📦 Components
+
+### Meal Voting Components
+- **RecipeCard** - Display recipe information with image, title, description, and metadata
+- **VoteCard** - Approval voting interface for recipe selection
+- **RankedVoteCard** - Ranked choice voting with drag-and-drop reordering
+- **TallyBar** - Visual representation of voting results with progress bars
+- **MealSlot** - Individual meal slot for weekly planning
+- **PlanGrid** - Weekly meal planning grid interface
+- **ImportBanner** - Recipe import interface with external recipe management
+- **CookMode** - Step-by-step cooking mode with timer and progress tracking
+
+### UI Components
+- **Button** - Versatile button component with multiple variants (default, outline, destructive, ghost, link) and sizes
+- **Card** - Container component with header, content, and footer sections
+- **Badge** - Small label component for tags and status indicators
+- **Input** - Text input field with consistent styling
+- **Label** - Form label component for accessibility
+- **Checkbox** - Checkbox input with label integration
+- **Alert** - Notification component for important messages with default and destructive variants
+- **Accordion** - Collapsible content sections with smooth animations
+- **Progress** - Progress bar for tracking completion
+- **Tabs** - Tabbed interface for organizing content
+- **Toggle** - Toggle button for binary states
+- **Popover** - Floating content container
+- **HoverCard** - Content that appears on hover
+- **Collapsible** - Expandable/collapsible content
+- **Separator** - Visual divider between sections
+
 ## 🚀 Quick Start
 
 ### Recipe Card
