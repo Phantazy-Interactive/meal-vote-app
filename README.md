@@ -338,6 +338,8 @@ function MyComponent() {
 
 ### Alert
 
+Display important messages and notifications.
+
 ```tsx
 import { Alert, AlertTitle, AlertDescription } from '@phantazyinteractive/mealvote-components';
 import { AlertCircle, Terminal } from 'lucide-react';
@@ -363,6 +365,93 @@ function MyComponent() {
     </>
   );
 }
+```
+
+### Alert Dialog
+
+Show confirmation dialogs and important alerts that require user action.
+
+```tsx
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@phantazyinteractive/mealvote-components';
+import { Button } from '@phantazyinteractive/mealvote-components';
+
+function DeleteConfirmation() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive">Delete Item</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your item.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+```
+
+### Toast Notifications
+
+Display temporary status messages and notifications.
+
+```tsx
+import { Button, useToast, Toaster } from '@phantazyinteractive/mealvote-components';
+
+function App() {
+  const { toast } = useToast();
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          toast({
+            title: "Success!",
+            description: "Your changes have been saved.",
+          });
+        }}
+      >
+        Show Toast
+      </Button>
+      <Toaster />
+    </>
+  );
+}
+```
+
+Error toast:
+```tsx
+toast({
+  variant: "destructive",
+  title: "Error",
+  description: "Something went wrong.",
+});
+```
+
+Toast with action button:
+```tsx
+toast({
+  title: "Undo action",
+  description: "You can undo this action.",
+  action: <Button variant="outline" size="sm">Undo</Button>,
+});
 ```
 
 ### Accordion
