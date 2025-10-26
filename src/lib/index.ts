@@ -15,8 +15,6 @@ export { CookMode } from "../components/meal-vote/CookMode";
 
 // Export UI components (explicit exports for better tree shaking)
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
-export { AlertDialog, AlertDialogRoot, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogPortal, AlertDialogTitle, AlertDialogTrigger } from "../components/ui/alert-dialog";
-export type { AlertDialogProps } from "../components/ui/alert-dialog";
 export { Alert, AlertDescription, AlertTitle } from "../components/ui/alert";
 export type { AlertProps } from "../components/ui/alert";
 export { AspectRatio } from "../components/ui/aspect-ratio";
