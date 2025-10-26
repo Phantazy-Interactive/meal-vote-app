@@ -4,7 +4,7 @@ import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
-const AlertDialog = AlertDialogPrimitive.Root;
+const AlertDialogRoot = AlertDialogPrimitive.Root;
 
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 
@@ -89,8 +89,72 @@ const AlertDialogCancel = React.forwardRef<
 ));
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 
+// Simplified AlertDialog component with props-based API
+interface AlertDialogProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  trigger?: React.ReactNode;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  cancelText?: string;
+  actionText?: string;
+  onCancel?: () => void;
+  onAction?: () => void;
+  variant?: "default" | "destructive";
+  children?: React.ReactNode;
+}
+
+const AlertDialog = ({
+  open,
+  onOpenChange,
+  trigger,
+  title,
+  description,
+  cancelText = "Cancel",
+  actionText = "Continue",
+  onCancel,
+  onAction,
+  variant = "default",
+  children,
+}: AlertDialogProps) => {
+  const content = (
+    <AlertDialogContent>
+      <AlertDialogHeader>
+        <AlertDialogTitle>{title}</AlertDialogTitle>
+        {description && <AlertDialogDescription>{description}</AlertDialogDescription>}
+      </AlertDialogHeader>
+      {children}
+      <AlertDialogFooter>
+        <AlertDialogCancel onClick={onCancel}>{cancelText}</AlertDialogCancel>
+        <AlertDialogAction
+          onClick={onAction}
+          className={variant === "destructive" ? "bg-destructive text-destructive-foreground hover:bg-destructive/90" : ""}
+        >
+          {actionText}
+        </AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  );
+
+  if (trigger) {
+    return (
+      <AlertDialogRoot open={open} onOpenChange={onOpenChange}>
+        <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
+        {content}
+      </AlertDialogRoot>
+    );
+  }
+
+  return (
+    <AlertDialogRoot open={open} onOpenChange={onOpenChange}>
+      {content}
+    </AlertDialogRoot>
+  );
+};
+
 export {
   AlertDialog,
+  AlertDialogRoot,
   AlertDialogPortal,
   AlertDialogOverlay,
   AlertDialogTrigger,
@@ -101,4 +165,5 @@ export {
   AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
+  type AlertDialogProps,
 };
