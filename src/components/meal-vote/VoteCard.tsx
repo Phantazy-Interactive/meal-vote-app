@@ -47,14 +47,15 @@ export const VoteCard = ({
   };
 
   return (
-    <Card className="p-6 space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-foreground mb-2">{title}</h2>
-        <p className="text-muted-foreground">{description}</p>
+    <Card className="p-8 space-y-6 animate-fade-in">
+      <div className="space-y-2">
+        <h2 className="text-3xl font-bold text-foreground bg-gradient-primary bg-clip-text">{title}</h2>
+        <p className="text-muted-foreground text-lg">{description}</p>
         {maxSelections < 999 && (
-          <p className="text-sm text-muted-foreground mt-1">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
+            <span className="text-lg">✨</span>
             Select up to {maxSelections} option{maxSelections !== 1 ? "s" : ""}
-          </p>
+          </div>
         )}
       </div>
 
@@ -69,42 +70,50 @@ export const VoteCard = ({
               />
             ) : (
               <Card
-                className={`p-4 cursor-pointer transition-smooth hover:shadow-medium ${
-                  selected.has(candidate.id) ? "ring-2 ring-primary shadow-medium" : ""
+                className={`p-5 cursor-pointer group ${
+                  selected.has(candidate.id) ? "ring-4 ring-primary shadow-colored-primary scale-[1.02]" : ""
                 }`}
                 onClick={() => toggleSelection(candidate.id)}
               >
                 {candidate.suggestion?.imageUrl && (
-                  <img
-                    src={candidate.suggestion.imageUrl}
-                    alt={candidate.suggestion.text}
-                    className="w-full h-32 object-cover rounded-md mb-3"
-                  />
+                  <div className="relative overflow-hidden rounded-xl mb-4">
+                    <img
+                      src={candidate.suggestion.imageUrl}
+                      alt={candidate.suggestion.text}
+                      className="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
                 )}
-                <p className="text-foreground font-medium">{candidate.suggestion?.text}</p>
+                <p className="text-foreground font-bold group-hover:text-primary transition-colors">{candidate.suggestion?.text}</p>
               </Card>
             )}
 
             {selected.has(candidate.id) && (
-              <div className="absolute top-2 left-2 bg-primary text-primary-foreground rounded-full p-2 shadow-medium animate-scale-in">
-                <Check className="w-4 h-4" />
+              <div className="absolute top-3 left-3 bg-gradient-primary text-primary-foreground rounded-full p-2.5 shadow-colored-primary animate-bounce-in">
+                <Check className="w-5 h-5" />
               </div>
             )}
           </div>
         ))}
       </div>
 
-      <div className="flex justify-between items-center pt-4 border-t">
-        <p className="text-sm text-muted-foreground">
-          {selected.size} selected
-        </p>
+      <div className="flex justify-between items-center pt-6 border-t-2 border-border/50">
+        <div className="flex items-center gap-2">
+          <div className="bg-primary/10 text-primary px-4 py-2 rounded-full font-bold">
+            {selected.size}
+          </div>
+          <span className="text-sm text-muted-foreground font-medium">
+            {selected.size === 1 ? "option" : "options"} selected
+          </span>
+        </div>
         <Button
           onClick={handleSubmit}
           disabled={selected.size === 0}
           size="lg"
-          className="bg-gradient-primary hover:opacity-90"
+          className="gap-2"
         >
-          <ThumbsUp className="w-4 h-4 mr-2" />
+          <ThumbsUp className="w-5 h-5" />
           Submit Vote
         </Button>
       </div>

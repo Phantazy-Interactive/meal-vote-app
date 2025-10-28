@@ -29,26 +29,27 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
 
   return (
     <Card
-      className={`overflow-hidden transition-smooth cursor-pointer hover:shadow-medium ${
-        selected ? "ring-2 ring-primary shadow-medium" : ""
+      className={`overflow-hidden cursor-pointer group ${
+        selected ? "ring-4 ring-primary shadow-colored-primary scale-[1.02]" : ""
       } ${compact ? "flex flex-row" : ""}`}
       onClick={onClick}
     >
-      <div className={`relative ${compact ? "w-24 h-24" : "w-full h-48"} overflow-hidden bg-muted`}>
+      <div className={`relative ${compact ? "w-24 h-24 rounded-l-2xl" : "w-full h-48"} overflow-hidden bg-muted`}>
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         {recipe.difficulty && !compact && (
-          <Badge className={`absolute top-2 right-2 ${difficultyColors[recipe.difficulty]}`}>
+          <Badge className={`absolute top-3 right-3 rounded-full shadow-medium animate-bounce-in ${difficultyColors[recipe.difficulty]}`}>
             {recipe.difficulty}
           </Badge>
         )}
       </div>
 
-      <div className={`p-4 ${compact ? "flex-1" : ""}`}>
-        <h3 className={`font-semibold text-foreground mb-2 ${compact ? "text-sm" : "text-lg"} line-clamp-2`}>
+      <div className={`p-5 ${compact ? "flex-1" : ""}`}>
+        <h3 className={`font-bold text-foreground mb-2 ${compact ? "text-sm" : "text-lg"} line-clamp-2 group-hover:text-primary transition-colors`}>
           {recipe.title}
         </h3>
 
@@ -66,9 +67,9 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
         </div>
 
         {!compact && recipe.cuisines && recipe.cuisines.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-3">
+          <div className="flex flex-wrap gap-2 mt-3">
             {recipe.cuisines.slice(0, 3).map((cuisine) => (
-              <Badge key={cuisine} variant="secondary" className="text-xs">
+              <Badge key={cuisine} variant="secondary" className="text-xs rounded-full px-3 py-1 hover:scale-110 transition-transform">
                 {cuisine}
               </Badge>
             ))}
