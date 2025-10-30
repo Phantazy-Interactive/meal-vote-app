@@ -103,9 +103,9 @@ export const RankedVoteCard = ({
                 <div className="flex-1">
                   {candidate.recipe ? (
                     <RecipeCard recipe={candidate.recipe} compact />
-                  ) : (
-                    <p className="font-medium">{candidate.suggestion?.text}</p>
-                  )}
+                  ) : candidate.suggestion?.text ? (
+                    <p className="font-medium">{candidate.suggestion.text}</p>
+                  ) : null}
                 </div>
                 <Button
                   variant="ghost"
@@ -128,18 +128,18 @@ export const RankedVoteCard = ({
               <div key={candidate.id} onClick={() => addToRanked(candidate.id)}>
                 {candidate.recipe ? (
                   <RecipeCard recipe={candidate.recipe} />
-                ) : (
+                ) : candidate.suggestion?.text ? (
                   <Card className="p-4 cursor-pointer hover:shadow-medium transition-smooth">
-                    {candidate.suggestion?.imageUrl && (
+                    {candidate.suggestion.imageUrl && (
                       <img
                         src={candidate.suggestion.imageUrl}
                         alt={candidate.suggestion.text}
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
                     )}
-                    <p className="text-foreground font-medium">{candidate.suggestion?.text}</p>
+                    <p className="text-foreground font-medium">{candidate.suggestion.text}</p>
                   </Card>
-                )}
+                ) : null}
               </div>
             ))}
           </div>

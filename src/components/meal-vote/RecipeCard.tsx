@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 export interface Recipe {
   id: string;
   title: string;
-  imageUrl: string;
-  timeTotal: number;
+  imageUrl?: string;
+  timeTotal?: number;
   servings?: number;
   tags?: string[];
   cuisines?: string[];
@@ -34,18 +34,20 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
       } ${compact ? "flex flex-row" : ""}`}
       onClick={onClick}
     >
-      <div className={`relative ${compact ? "w-24 h-24" : "w-full h-48"} overflow-hidden bg-muted`}>
-        <img
-          src={recipe.imageUrl}
-          alt={recipe.title}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-        />
-        {recipe.difficulty && !compact && (
-          <Badge className={`absolute top-2 right-2 ${difficultyColors[recipe.difficulty]}`}>
-            {recipe.difficulty}
-          </Badge>
-        )}
-      </div>
+      {recipe.imageUrl && (
+        <div className={`relative ${compact ? "w-24 h-24" : "w-full h-48"} overflow-hidden bg-muted`}>
+          <img
+            src={recipe.imageUrl}
+            alt={recipe.title}
+            className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+          />
+          {recipe.difficulty && !compact && (
+            <Badge className={`absolute top-2 right-2 ${difficultyColors[recipe.difficulty]}`}>
+              {recipe.difficulty}
+            </Badge>
+          )}
+        </div>
+      )}
 
       <div className={`p-4 ${compact ? "flex-1" : ""}`}>
         <h3 className={`font-semibold text-foreground mb-2 ${compact ? "text-sm" : "text-lg"} line-clamp-2`}>
@@ -53,10 +55,12 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
         </h3>
 
         <div className={`flex items-center gap-4 text-muted-foreground ${compact ? "text-xs" : "text-sm"}`}>
-          <div className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
-            <span>{recipe.timeTotal} min</span>
-          </div>
+          {recipe.timeTotal && (
+            <div className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              <span>{recipe.timeTotal} min</span>
+            </div>
+          )}
           {recipe.servings && (
             <div className="flex items-center gap-1">
               <Users className="w-4 h-4" />
