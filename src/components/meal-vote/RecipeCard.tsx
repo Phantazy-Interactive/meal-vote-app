@@ -69,7 +69,7 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
         {!compact && recipe.cuisines && recipe.cuisines.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-3">
             {recipe.cuisines.slice(0, 3).map((cuisine) => (
-              <Badge key={cuisine} variant="secondary" className="text-xs rounded-full px-3 py-1 hover:scale-110 transition-transform">
+              <Badge key={cuisine} variant="secondary" className="text-xs rounded-full px-3 py-1 transition-transform">
                 {cuisine}
               </Badge>
             ))}
