@@ -1,6 +1,6 @@
 {
     "name": "@phantazyinteractive/mealvote-components",
-    "version": "0.2.9",
+    "version": "0.3.0",
     "description": "React component library for collaborative meal planning and voting",
     "type": "module",
     "main": "./dist/index.cjs",
