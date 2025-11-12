@@ -80,7 +80,7 @@ export const VoteCard = ({
                     <img
                       src={candidate.suggestion.imageUrl}
                       alt={candidate.suggestion.text}
-                      className="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-32 object-cover transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
