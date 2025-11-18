@@ -24,47 +24,47 @@ export const TallyBar = ({ results, totalVoters, mode = "approval", live }: Tall
 
   return (
     <Card className="p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-semibold text-foreground">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base sm:text-lg font-semibold text-foreground">
             {live ? "Live Results" : "Final Results"}
           </h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground truncate">
             {totalVoters} voter{totalVoters !== 1 ? "s" : ""} • {mode === "ranked" ? "Borda count" : "Approval voting"}
           </p>
         </div>
         {live && (
-          <Badge variant="default" className="bg-success animate-pulse-soft">
+          <Badge variant="default" className="bg-success animate-pulse-soft flex-shrink-0">
             <div className="w-2 h-2 rounded-full bg-white mr-2" />
             Live
           </Badge>
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {sortedResults.map((result, index) => (
-          <div key={result.candidateId} className="space-y-2 animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+          <div key={result.candidateId} className="space-y-1.5 sm:space-y-2 animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
                 {result.isWinner && (
-                  <TrendingUp className="w-5 h-5 text-primary" />
+                  <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                 )}
-                <span className="font-medium text-foreground">
+                <span className="font-medium text-foreground text-sm sm:text-base truncate">
                   {result.candidateName}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">
-                  {result.votes} {mode === "ranked" ? "points" : "votes"}
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                <span className="text-xs sm:text-sm text-muted-foreground">
+                  {result.votes} {mode === "ranked" ? "pts" : "votes"}
                 </span>
-                <span className="text-sm font-semibold text-foreground min-w-[3rem] text-right">
+                <span className="text-xs sm:text-sm font-semibold text-foreground min-w-[2.5rem] sm:min-w-[3rem] text-right">
                   {result.percentage}%
                 </span>
               </div>
             </div>
             <Progress
               value={(result.votes / maxVotes) * 100}
-              className={`h-3 ${result.isWinner ? "[&>div]:bg-gradient-primary" : "[&>div]:bg-secondary"}`}
+              className={`h-2 sm:h-3 ${result.isWinner ? "[&>div]:bg-gradient-primary" : "[&>div]:bg-secondary"}`}
             />
           </div>
         ))}
