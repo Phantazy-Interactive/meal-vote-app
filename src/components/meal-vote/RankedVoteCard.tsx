@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RecipeCard, Recipe } from "./RecipeCard";
+import { cn } from "@/lib/utils";
 
 interface Candidate {
   id: string;
@@ -94,23 +95,54 @@ export const RankedVoteCard = ({
                 onDragStart={() => handleDragStart(candidateId)}
                 onDragOver={(e) => handleDragOver(e, candidateId)}
                 onDrop={handleDrop}
-                className="flex items-center gap-3 bg-card border rounded-lg p-3 cursor-move hover:shadow-medium transition-smooth"
+                className={cn(
+                  "flex items-center gap-2 sm:gap-3 bg-card border rounded-lg p-2 sm:p-3 cursor-move",
+                  "transition-all duration-200 ease-out overflow-hidden",
+                  "hover:shadow-elegant hover:scale-[1.02] hover:border-primary/30 hover:-rotate-1",
+                  "active:scale-[1.05] active:shadow-glow active:z-10 active:rotate-1",
+                  draggedItem === candidateId && "opacity-50 scale-95"
+                )}
               >
-                <Badge variant="default" className="w-8 h-8 flex items-center justify-center rounded-full">
+                <Badge 
+                  variant="default" 
+                  className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full flex-shrink-0"
+                >
                   {index + 1}
                 </Badge>
-                <GripVertical className="w-5 h-5 text-muted-foreground" />
-                <div className="flex-1">
+                <GripVertical className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground flex-shrink-0" />
+                <div className="flex-1 min-w-0 overflow-hidden">
                   {candidate.recipe ? (
-                    <RecipeCard recipe={candidate.recipe} compact />
+                    <div className="flex items-center gap-2 min-w-0">
+                      {candidate.recipe.imageUrl && (
+                        <img
+                          src={candidate.recipe.imageUrl}
+                          alt={candidate.recipe.title}
+                          className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded flex-shrink-0"
+                        />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm sm:text-base text-foreground truncate">
+                          {candidate.recipe.title}
+                        </p>
+                        {candidate.recipe.timeTotal && (
+                          <p className="text-xs text-muted-foreground">
+                            {candidate.recipe.timeTotal} min
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   ) : candidate.suggestion?.text ? (
-                    <p className="font-medium">{candidate.suggestion.text}</p>
+                    <p className="font-medium text-sm sm:text-base truncate">{candidate.suggestion.text}</p>
                   ) : null}
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => removeFromRanked(candidateId)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeFromRanked(candidateId);
+                  }}
+                  className="flex-shrink-0 h-8 px-2 sm:px-3 text-xs sm:text-sm"
                 >
                   Remove
                 </Button>
