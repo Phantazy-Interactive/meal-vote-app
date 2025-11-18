@@ -30,6 +30,7 @@ export const RankedVoteCard = ({
 }: RankedVoteCardProps) => {
   const [ranked, setRanked] = useState<string[]>([]);
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
+  const [dragOverItem, setDragOverItem] = useState<string | null>(null);
 
   const unranked = candidates.filter(c => !ranked.includes(c.id));
 
@@ -40,6 +41,8 @@ export const RankedVoteCard = ({
   const handleDragOver = (e: React.DragEvent, candidateId: string) => {
     e.preventDefault();
     if (!draggedItem || draggedItem === candidateId) return;
+
+    setDragOverItem(candidateId);
 
     const newRanked = [...ranked];
     const draggedIndex = newRanked.indexOf(draggedItem);
@@ -55,6 +58,11 @@ export const RankedVoteCard = ({
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setDraggedItem(null);
+    setDragOverItem(null);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverItem(null);
   };
 
   const addToRanked = (candidateId: string) => {
@@ -94,13 +102,15 @@ export const RankedVoteCard = ({
                 draggable
                 onDragStart={() => handleDragStart(candidateId)}
                 onDragOver={(e) => handleDragOver(e, candidateId)}
+                onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
                 className={cn(
                   "flex items-center gap-2 sm:gap-3 bg-card border rounded-lg p-2 sm:p-3 cursor-move",
-                  "transition-all duration-200 ease-out overflow-hidden",
+                  "transition-all duration-300 ease-in-out overflow-hidden",
                   "hover:shadow-elegant hover:scale-[1.02] hover:border-primary/30 hover:-rotate-1",
-                  "active:scale-[1.05] active:shadow-glow active:z-10 active:rotate-1",
-                  draggedItem === candidateId && "opacity-50 scale-95"
+                  "active:cursor-grabbing",
+                  draggedItem === candidateId && "opacity-40 scale-90 rotate-3 shadow-glow z-50",
+                  dragOverItem === candidateId && "border-primary border-2 shadow-glow scale-105"
                 )}
               >
                 <Badge 
