@@ -14,7 +14,7 @@ interface CookStep {
 interface CookModeProps {
   recipeName: string;
   steps: CookStep[];
-  totalTime: number;
+  totalTime?: number;
   onComplete?: () => void;
   onExit?: () => void;
 }
@@ -63,11 +63,13 @@ export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit }: C
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">{recipeName}</h1>
-            <p className="text-muted-foreground">Total time: {totalTime} minutes</p>
+            {totalTime && <p className="text-muted-foreground">Total time: {totalTime} minutes</p>}
           </div>
-          <Button variant="ghost" onClick={onExit}>
-            Exit Cook Mode
-          </Button>
+          {onExit && (
+            <Button variant="ghost" onClick={onExit}>
+              Exit Cook Mode
+            </Button>
+          )}
         </div>
 
         {/* Progress */}

@@ -63,10 +63,12 @@ export const MealSlot = ({
             <div className="flex-1 min-w-0">
               <h4 className="font-medium text-foreground line-clamp-2">{finalRecipe.title}</h4>
               <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  {finalRecipe.timeTotal}m
-                </span>
+                {finalRecipe.timeTotal && (
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {finalRecipe.timeTotal}m
+                  </span>
+                )}
                 {finalRecipe.servings && (
                   <span className="flex items-center gap-1">
                     <Users className="w-3 h-3" />

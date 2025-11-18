@@ -23,19 +23,19 @@ export const TallyBar = ({ results, totalVoters, mode = "approval", live }: Tall
   const maxVotes = sortedResults[0]?.votes || 0;
 
   return (
-    <Card className="p-8 space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <div className="space-y-1">
-          <h3 className="text-2xl font-bold text-foreground">
-            {live ? "🎉 Live Results" : "🏆 Final Results"}
+    <Card className="p-6 space-y-4">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base sm:text-lg font-semibold text-foreground">
+            {live ? "Live Results" : "Final Results"}
           </h3>
-          <p className="text-sm text-muted-foreground font-medium">
+          <p className="text-xs sm:text-sm text-muted-foreground truncate">
             {totalVoters} voter{totalVoters !== 1 ? "s" : ""} • {mode === "ranked" ? "Borda count" : "Approval voting"}
           </p>
         </div>
         {live && (
-          <Badge variant="default" className="bg-gradient-secondary rounded-full px-4 py-2 animate-pulse-soft shadow-colored-secondary">
-            <div className="w-2.5 h-2.5 rounded-full bg-white mr-2 animate-pulse" />
+          <Badge variant="default" className="bg-success animate-pulse-soft flex-shrink-0">
+            <div className="w-2 h-2 rounded-full bg-white mr-2" />
             Live
           </Badge>
         )}

@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 export interface Recipe {
   id: string;
   title: string;
-  imageUrl: string;
-  timeTotal: number;
+  imageUrl?: string;
+  timeTotal?: number;
   servings?: number;
   tags?: string[];
   cuisines?: string[];
@@ -54,10 +54,12 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
         </h3>
 
         <div className={`flex items-center gap-4 text-muted-foreground ${compact ? "text-xs" : "text-sm"}`}>
-          <div className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
-            <span>{recipe.timeTotal} min</span>
-          </div>
+          {recipe.timeTotal && (
+            <div className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              <span>{recipe.timeTotal} min</span>
+            </div>
+          )}
           {recipe.servings && (
             <div className="flex items-center gap-1">
               <Users className="w-4 h-4" />
@@ -72,6 +74,19 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
               <Badge key={cuisine} variant="secondary" className="text-xs rounded-full px-3 py-1 transition-transform">
                 {cuisine}
               </Badge>
+            ))}
+          </div>
+        )}
+
+        {!compact && recipe.tags && recipe.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {recipe.tags.slice(0, 4).map((tag) => (
+              <span 
+                key={tag} 
+                className="text-xs text-muted-foreground/70 bg-muted/50 px-2 py-0.5 rounded-full"
+              >
+                {tag}
+              </span>
             ))}
           </div>
         )}
