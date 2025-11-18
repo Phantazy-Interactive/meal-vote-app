@@ -158,7 +158,7 @@ export const RankedVoteCard = ({
         </div>
       )}
 
-      <div className="flex justify-between items-center pt-4 border-t">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 sm:justify-between sm:items-center pt-4 border-t">
         <p className="text-sm text-muted-foreground">
           {ranked.length} ranked
         </p>
@@ -166,7 +166,7 @@ export const RankedVoteCard = ({
           onClick={handleSubmit}
           disabled={ranked.length === 0}
           size="lg"
-          className="bg-gradient-primary hover:opacity-90"
+          className="bg-gradient-primary hover:opacity-90 w-full sm:w-auto"
         >
           <Award className="w-4 h-4 mr-2" />
           Submit Rankings

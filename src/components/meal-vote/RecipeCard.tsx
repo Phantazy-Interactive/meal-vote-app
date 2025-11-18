@@ -78,6 +78,19 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
             ))}
           </div>
         )}
+
+        {!compact && recipe.tags && recipe.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {recipe.tags.slice(0, 4).map((tag) => (
+              <span 
+                key={tag} 
+                className="text-xs text-muted-foreground/70 bg-muted/50 px-2 py-0.5 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </Card>
   );
