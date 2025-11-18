@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GripVertical, Award } from "lucide-react";
+import { Reorder } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,41 +30,8 @@ export const RankedVoteCard = ({
   description = "Drag to reorder from most to least preferred"
 }: RankedVoteCardProps) => {
   const [ranked, setRanked] = useState<string[]>([]);
-  const [draggedItem, setDraggedItem] = useState<string | null>(null);
-  const [dragOverItem, setDragOverItem] = useState<string | null>(null);
 
   const unranked = candidates.filter(c => !ranked.includes(c.id));
-
-  const handleDragStart = (candidateId: string) => {
-    setDraggedItem(candidateId);
-  };
-
-  const handleDragOver = (e: React.DragEvent, candidateId: string) => {
-    e.preventDefault();
-    if (!draggedItem || draggedItem === candidateId) return;
-
-    setDragOverItem(candidateId);
-
-    const newRanked = [...ranked];
-    const draggedIndex = newRanked.indexOf(draggedItem);
-    const targetIndex = newRanked.indexOf(candidateId);
-
-    if (draggedIndex !== -1 && targetIndex !== -1) {
-      newRanked.splice(draggedIndex, 1);
-      newRanked.splice(targetIndex, 0, draggedItem);
-      setRanked(newRanked);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setDraggedItem(null);
-    setDragOverItem(null);
-  };
-
-  const handleDragLeave = () => {
-    setDragOverItem(null);
-  };
 
   const addToRanked = (candidateId: string) => {
     setRanked([...ranked, candidateId]);
@@ -92,73 +60,75 @@ export const RankedVoteCard = ({
             <Award className="w-5 h-5 text-primary" />
             Your Rankings
           </h3>
-          {ranked.map((candidateId, index) => {
-            const candidate = getCandidate(candidateId);
-            if (!candidate) return null;
+          <Reorder.Group axis="y" values={ranked} onReorder={setRanked} className="space-y-3">
+            {ranked.map((candidateId, index) => {
+              const candidate = getCandidate(candidateId);
+              if (!candidate) return null;
 
-            return (
-              <div
-                key={candidateId}
-                draggable
-                onDragStart={() => handleDragStart(candidateId)}
-                onDragOver={(e) => handleDragOver(e, candidateId)}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
-                className={cn(
-                  "flex items-center gap-2 sm:gap-3 bg-card border rounded-lg p-2 sm:p-3 cursor-move",
-                  "transition-all duration-300 ease-in-out overflow-hidden",
-                  "hover:shadow-elegant hover:scale-[1.02] hover:border-primary/30 hover:-rotate-1",
-                  "active:cursor-grabbing",
-                  draggedItem === candidateId && "opacity-40 scale-90 rotate-3 shadow-glow z-50",
-                  dragOverItem === candidateId && "border-primary border-2 shadow-glow scale-105"
-                )}
-              >
-                <Badge 
-                  variant="default" 
-                  className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full flex-shrink-0"
-                >
-                  {index + 1}
-                </Badge>
-                <GripVertical className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground flex-shrink-0" />
-                <div className="flex-1 min-w-0 overflow-hidden">
-                  {candidate.recipe ? (
-                    <div className="flex items-center gap-2 min-w-0">
-                      {candidate.recipe.imageUrl && (
-                        <img
-                          src={candidate.recipe.imageUrl}
-                          alt={candidate.recipe.title}
-                          className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded flex-shrink-0"
-                        />
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm sm:text-base text-foreground truncate">
-                          {candidate.recipe.title}
-                        </p>
-                        {candidate.recipe.timeTotal && (
-                          <p className="text-xs text-muted-foreground">
-                            {candidate.recipe.timeTotal} min
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ) : candidate.suggestion?.text ? (
-                    <p className="font-medium text-sm sm:text-base truncate">{candidate.suggestion.text}</p>
-                  ) : null}
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeFromRanked(candidateId);
+              return (
+                <Reorder.Item
+                  key={candidateId}
+                  value={candidateId}
+                  className={cn(
+                    "flex items-center gap-2 sm:gap-3 bg-card border rounded-lg p-2 sm:p-3 cursor-grab",
+                    "overflow-hidden hover:shadow-elegant hover:border-primary/20",
+                    "active:cursor-grabbing active:shadow-glow"
+                  )}
+                  whileDrag={{
+                    scale: 1.05,
+                    boxShadow: "0 10px 40px rgba(0, 0, 0, 0.2)",
+                    rotate: 2,
+                    zIndex: 50
                   }}
-                  className="flex-shrink-0 h-8 px-2 sm:px-3 text-xs sm:text-sm"
+                  transition={{ duration: 0.2 }}
                 >
-                  Remove
-                </Button>
-              </div>
-            );
-          })}
+                  <Badge 
+                    variant="default" 
+                    className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full flex-shrink-0"
+                  >
+                    {index + 1}
+                  </Badge>
+                  <GripVertical className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground flex-shrink-0" />
+                  <div className="flex-1 min-w-0 overflow-hidden">
+                    {candidate.recipe ? (
+                      <div className="flex items-center gap-2 min-w-0">
+                        {candidate.recipe.imageUrl && (
+                          <img
+                            src={candidate.recipe.imageUrl}
+                            alt={candidate.recipe.title}
+                            className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded flex-shrink-0"
+                          />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm sm:text-base text-foreground truncate">
+                            {candidate.recipe.title}
+                          </p>
+                          {candidate.recipe.timeTotal && (
+                            <p className="text-xs text-muted-foreground">
+                              {candidate.recipe.timeTotal} min
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ) : candidate.suggestion?.text ? (
+                      <p className="font-medium text-sm sm:text-base truncate">{candidate.suggestion.text}</p>
+                    ) : null}
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeFromRanked(candidateId);
+                    }}
+                    className="flex-shrink-0 h-8 px-2 sm:px-3 text-xs sm:text-sm"
+                  >
+                    Remove
+                  </Button>
+                </Reorder.Item>
+              );
+            })}
+          </Reorder.Group>
         </div>
       )}
 
