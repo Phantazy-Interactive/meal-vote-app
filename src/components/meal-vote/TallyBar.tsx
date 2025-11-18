@@ -45,7 +45,7 @@ export const TallyBar = ({ results, totalVoters, mode = "approval", live }: Tall
         {sortedResults.map((result, index) => (
           <div
             key={result.candidateId}
-            className={`space-y-3 p-4 rounded-2xl transition-all duration-300 hover:bg-accent/30 ${
+            className={`space-y-3 p-4 rounded-2xl ${
               result.isWinner ? "bg-primary/5 ring-2 ring-primary/20" : ""
             }`}
             style={{ animationDelay: `${index * 50}ms` }}
