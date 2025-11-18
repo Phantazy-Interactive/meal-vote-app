@@ -1,6 +1,6 @@
 {
     "name": "@phantazyinteractive/mealvote-components",
-    "version": "0.2.7",
+    "version": "0.3.1",
     "description": "React component library for collaborative meal planning and voting",
     "type": "module",
     "main": "./dist/index.cjs",
@@ -89,6 +89,10 @@
         "tailwind-merge": "^2.6.0"
     },
     "dependencies": {
+        "@fontsource-variable/familjen-grotesk": "^5.2.8",
+        "@tanstack/react-query": "^5.83.0",
+        "date-fns": "^3.6.0",
+        "embla-carousel-react": "^8.6.0",
         "@tanstack/react-query": "^5.83.0",
         "date-fns": "^3.6.0",
         "embla-carousel-react": "^8.6.0",
