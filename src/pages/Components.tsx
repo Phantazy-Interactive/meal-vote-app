@@ -50,10 +50,17 @@ const Components = () => {
                   <p className="text-muted-foreground mb-6">
                     Display recipe information with image, time, servings, and tags
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                       <h3 className="text-sm font-medium mb-3">Default</h3>
                       <RecipeCard recipe={sampleRecipe} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium mb-3">With Cookbook Action</h3>
+                      <RecipeCard 
+                        recipe={sampleRecipe} 
+                        onAddToCookbook={() => alert("Added to cookbook!")}
+                      />
                     </div>
                     <div>
                       <h3 className="text-sm font-medium mb-3">Compact</h3>
@@ -70,6 +77,7 @@ const Components = () => {
   onClick?: () => void;
   selected?: boolean;
   compact?: boolean;
+  onAddToCookbook?: () => void;
 }`}
                   </pre>
                 </Card>
