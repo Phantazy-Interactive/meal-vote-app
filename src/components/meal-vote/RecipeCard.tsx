@@ -47,7 +47,7 @@ export const RecipeCard = ({ recipe, onClick, selected, compact, onAddToCookbook
           <Button
             size="icon"
             variant="secondary"
-            className="absolute top-3 right-3 h-9 w-9 rounded-full shadow-medium bg-background/80 backdrop-blur-sm hover:bg-background hover:scale-110 transition-all"
+            className="absolute top-3 right-3 h-9 w-9 rounded-full shadow-medium bg-primary/90 text-primary-foreground backdrop-blur-sm hover:bg-primary hover:scale-110 transition-all"
             onClick={(e) => {
               e.stopPropagation();
               onAddToCookbook();
