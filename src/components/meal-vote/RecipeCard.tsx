@@ -1,6 +1,7 @@
-import { Clock, Users, ChefHat } from "lucide-react";
+import { Clock, Users, BookmarkPlus } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export interface Recipe {
   id: string;
@@ -18,9 +19,10 @@ interface RecipeCardProps {
   onClick?: () => void;
   selected?: boolean;
   compact?: boolean;
+  onAddToCookbook?: () => void;
 }
 
-export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardProps) => {
+export const RecipeCard = ({ recipe, onClick, selected, compact, onAddToCookbook }: RecipeCardProps) => {
   const difficultyColors = {
     easy: "bg-success/10 text-success",
     medium: "bg-warning/10 text-warning",
@@ -41,10 +43,18 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
           className="w-full h-full object-cover transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        {recipe.difficulty && !compact && (
-          <Badge className={`absolute top-3 right-3 rounded-full shadow-medium animate-bounce-in ${difficultyColors[recipe.difficulty]}`}>
-            {recipe.difficulty}
-          </Badge>
+        {onAddToCookbook && !compact && (
+          <Button
+            size="icon"
+            variant="secondary"
+            className="absolute top-3 right-3 h-9 w-9 rounded-full shadow-medium bg-background/80 backdrop-blur-sm hover:bg-background hover:scale-110 transition-all"
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddToCookbook();
+            }}
+          >
+            <BookmarkPlus className="h-4 w-4" />
+          </Button>
         )}
       </div>
 
@@ -65,6 +75,11 @@ export const RecipeCard = ({ recipe, onClick, selected, compact }: RecipeCardPro
               <Users className="w-4 h-4" />
               <span>{recipe.servings}</span>
             </div>
+          )}
+          {recipe.difficulty && (
+            <Badge className={`text-xs rounded-full px-2 py-0.5 ${difficultyColors[recipe.difficulty]}`}>
+              {recipe.difficulty}
+            </Badge>
           )}
         </div>
 

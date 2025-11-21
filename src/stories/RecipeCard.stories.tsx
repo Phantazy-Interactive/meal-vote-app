@@ -10,6 +10,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     onClick: { action: "clicked" },
+    onAddToCookbook: { action: "added to cookbook" },
     selected: { control: "boolean" },
     compact: { control: "boolean" },
   },
@@ -30,6 +31,13 @@ const sampleRecipe = {
 };
 
 export const Default: Story = {
+  args: {
+    recipe: sampleRecipe,
+    onAddToCookbook: () => console.log("Added to cookbook"),
+  },
+};
+
+export const WithoutCookbookAction: Story = {
   args: {
     recipe: sampleRecipe,
   },
