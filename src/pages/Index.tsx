@@ -1,9 +1,60 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Vote, Calendar, Users, ChefHat, Package } from "lucide-react";
+import { Vote, Calendar, Users, ChefHat, Package, Layers } from "lucide-react";
+import { CardStack } from "@/components/meal-vote/CardStack";
+import { RecipeCard, Recipe } from "@/components/meal-vote/RecipeCard";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
+
+  const sampleRecipes: Recipe[] = [
+    {
+      id: "1",
+      title: "Spicy Thai Basil Chicken",
+      imageUrl: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=800",
+      timeTotal: 30,
+      servings: 4,
+      cuisines: ["Thai"],
+      difficulty: "medium"
+    },
+    {
+      id: "2",
+      title: "Grilled Salmon with Vegetables",
+      imageUrl: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800",
+      timeTotal: 35,
+      servings: 4,
+      cuisines: ["Mediterranean"],
+      difficulty: "medium"
+    },
+    {
+      id: "3",
+      title: "Vegetarian Buddha Bowl",
+      imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800",
+      timeTotal: 25,
+      servings: 2,
+      cuisines: ["Asian", "Healthy"],
+      difficulty: "easy"
+    },
+    {
+      id: "4",
+      title: "Classic Beef Tacos",
+      imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800",
+      timeTotal: 20,
+      servings: 4,
+      cuisines: ["Mexican"],
+      difficulty: "easy"
+    },
+  ];
+
+  const handleAddToCookbook = (recipeName: string) => {
+    toast({
+      title: "Added to cookbook!",
+      description: `${recipeName} has been saved to your collection`,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-warm">
       {/* Hero Section */}
@@ -58,20 +109,45 @@ const Index = () => {
           </Card>
 
           <Card className="p-6 hover:shadow-medium transition-smooth">
+            <Layers className="w-12 h-12 text-warning mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Card Stack</h3>
+            <p className="text-muted-foreground">
+              Swipeable card navigation with smooth animations
+            </p>
+          </Card>
+
+          <Card className="p-6 hover:shadow-medium transition-smooth">
             <ChefHat className="w-12 h-12 text-accent mb-4" />
             <h3 className="text-lg font-semibold text-foreground mb-2">Cook Mode</h3>
             <p className="text-muted-foreground">
               Large-type instructions with timers and step tracking
             </p>
           </Card>
+        </div>
+      </div>
 
-          <Card className="p-6 hover:shadow-medium transition-smooth">
-            <Users className="w-12 h-12 text-info mb-4" />
-            <h3 className="text-lg font-semibold text-foreground mb-2">Collaborative</h3>
-            <p className="text-muted-foreground">
-              Built for households to decide together
+      {/* CardStack Demo */}
+      <div className="container mx-auto px-4 py-16 bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Interactive Card Stack
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Swipe or click to navigate through recipes. Try it yourself!
             </p>
-          </Card>
+          </div>
+          
+          <CardStack
+            items={sampleRecipes}
+            renderCard={(recipe) => (
+              <RecipeCard 
+                recipe={recipe} 
+                onAddToCookbook={() => handleAddToCookbook(recipe.title)}
+              />
+            )}
+            className="mb-8"
+          />
         </div>
       </div>
 
