@@ -10,6 +10,7 @@ export { RankedVoteCard } from "../components/meal-vote/RankedVoteCard";
 export { TallyBar } from "../components/meal-vote/TallyBar";
 export { MealSlot } from "../components/meal-vote/MealSlot";
 export { PlanGrid } from "../components/meal-vote/PlanGrid";
+export { CardStack } from "../components/meal-vote/CardStack";
 export { ImportBanner } from "../components/meal-vote/ImportBanner";
 export { CookMode } from "../components/meal-vote/CookMode";
 
