@@ -11,15 +11,45 @@ interface CookStep {
   duration?: number;
 }
 
+export interface CookModeLabels {
+  exitButton?: string;
+  totalTimeLabel?: string;
+  minutesLabel?: string;
+  stepLabel?: string;
+  ofLabel?: string;
+  recommendedTimeLabel?: string;
+  startTimerButton?: string;
+  timerActiveLabel?: string;
+  previousButton?: string;
+  nextButton?: string;
+  completeButton?: string;
+}
+
 interface CookModeProps {
   recipeName: string;
   steps: CookStep[];
   totalTime?: number;
   onComplete?: () => void;
   onExit?: () => void;
+  labels?: CookModeLabels;
 }
 
-export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit }: CookModeProps) => {
+const defaultLabels: CookModeLabels = {
+  exitButton: "Exit Cook Mode",
+  totalTimeLabel: "Total time",
+  minutesLabel: "minutes",
+  stepLabel: "Step",
+  ofLabel: "of",
+  recommendedTimeLabel: "Recommended time",
+  startTimerButton: "Start Timer",
+  timerActiveLabel: "Timer Active",
+  previousButton: "Previous",
+  nextButton: "Next",
+  completeButton: "Complete",
+};
+
+export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit, labels = defaultLabels }: CookModeProps) => {
+  const text = { ...defaultLabels, ...labels };
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const [timerActive, setTimerActive] = useState(false);
@@ -60,23 +90,23 @@ export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit }: C
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground">{recipeName}</h1>
-            {totalTime && <p className="text-muted-foreground">Total time: {totalTime} minutes</p>}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground break-words">{recipeName}</h1>
+            {totalTime && <p className="text-sm md:text-base text-muted-foreground">{text.totalTimeLabel}: {totalTime} {text.minutesLabel}</p>}
           </div>
           {onExit && (
-            <Button variant="ghost" onClick={onExit}>
-              Exit Cook Mode
+            <Button variant="ghost" onClick={onExit} className="shrink-0 text-sm md:text-base">
+              {text.exitButton}
             </Button>
           )}
         </div>
 
         {/* Progress */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between text-xs md:text-sm">
             <span className="text-muted-foreground">
-              Step {currentStep + 1} of {steps.length}
+              {text.stepLabel} {currentStep + 1} {text.ofLabel} {steps.length}
             </span>
             <span className="font-medium text-foreground">{Math.round(progress)}%</span>
           </div>
@@ -84,30 +114,30 @@ export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit }: C
         </div>
 
         {/* Current Step */}
-        <Card className="p-8 md:p-12 min-h-[400px] flex flex-col justify-between">
-          <div className="space-y-6">
-            <Badge variant="outline" className="text-lg px-4 py-2">
-              Step {currentStep + 1}
+        <Card className="p-4 sm:p-6 md:p-12 min-h-[300px] md:min-h-[400px] flex flex-col justify-between">
+          <div className="space-y-4 md:space-y-6">
+            <Badge variant="outline" className="text-sm md:text-lg px-3 py-1 md:px-4 md:py-2">
+              {text.stepLabel} {currentStep + 1}
             </Badge>
 
-            <p className="text-2xl md:text-4xl leading-relaxed text-foreground font-medium">
+            <p className="text-lg sm:text-xl md:text-4xl leading-relaxed text-foreground font-medium">
               {step.instruction}
             </p>
 
             {step.duration && (
-              <div className="flex items-center gap-4 pt-4">
-                <Timer className="w-6 h-6 text-primary" />
-                <div>
-                  <p className="text-sm text-muted-foreground">Recommended time</p>
-                  <p className="text-xl font-semibold text-foreground">{step.duration} minutes</p>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 pt-4">
+                <Timer className="w-5 h-5 md:w-6 md:h-6 text-primary shrink-0" />
+                <div className="flex-1">
+                  <p className="text-xs md:text-sm text-muted-foreground">{text.recommendedTimeLabel}</p>
+                  <p className="text-lg md:text-xl font-semibold text-foreground">{step.duration} {text.minutesLabel}</p>
                 </div>
                 {!timerActive ? (
-                  <Button variant="outline" onClick={startTimer}>
-                    Start Timer
+                  <Button variant="outline" onClick={startTimer} size="sm" className="text-sm shrink-0">
+                    {text.startTimerButton}
                   </Button>
                 ) : (
-                  <Badge className="bg-primary animate-pulse-soft">
-                    Timer Active
+                  <Badge className="bg-primary animate-pulse-soft text-xs md:text-sm shrink-0">
+                    {text.timerActiveLabel}
                   </Badge>
                 )}
               </div>
@@ -115,31 +145,32 @@ export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit }: C
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center justify-between pt-8 border-t mt-8">
+          <div className="flex items-center justify-between gap-2 sm:gap-4 pt-6 md:pt-8 border-t mt-6 md:mt-8">
             <Button
               variant="outline"
-              size="lg"
+              size="default"
               onClick={handlePrevious}
               disabled={currentStep === 0}
+              className="text-sm md:text-base"
             >
-              <ChevronLeft className="w-5 h-5 mr-2" />
-              Previous
+              <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
+              <span className="hidden sm:inline">{text.previousButton}</span>
             </Button>
 
             <Button
-              size="lg"
+              size="default"
               onClick={handleNext}
-              className={isLastStep ? "bg-success" : "bg-gradient-primary"}
+              className={`text-sm md:text-base ${isLastStep ? "bg-success" : "bg-gradient-primary"}`}
             >
               {isLastStep ? (
                 <>
-                  <CheckCircle2 className="w-5 h-5 mr-2" />
-                  Complete
+                  <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
+                  {text.completeButton}
                 </>
               ) : (
                 <>
-                  Next
-                  <ChevronRight className="w-5 h-5 ml-2" />
+                  {text.nextButton}
+                  <ChevronRight className="w-4 h-4 md:w-5 md:h-5 ml-1 md:ml-2" />
                 </>
               )}
             </Button>
