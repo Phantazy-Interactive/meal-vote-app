@@ -48,7 +48,7 @@ const defaultLabels: CookModeLabels = {
   completeButton: "Complete",
 };
 
-export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit, labels = defaultLabels }: CookModeProps) => {
+export const CookMode = ({ recipeName, steps, totalTime, onComplete, onExit, labels = {} }: CookModeProps) => {
   const text = { ...defaultLabels, ...labels };
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
