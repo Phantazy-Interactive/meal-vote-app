@@ -13,6 +13,7 @@ export { PlanGrid } from "../components/meal-vote/PlanGrid";
 export { CardStack } from "../components/meal-vote/CardStack";
 export { ImportBanner } from "../components/meal-vote/ImportBanner";
 export { CookMode } from "../components/meal-vote/CookMode";
+export type { CookModeLabels } from "../components/meal-vote/CookMode";
 
 // Export UI components (explicit exports for better tree shaking)
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
